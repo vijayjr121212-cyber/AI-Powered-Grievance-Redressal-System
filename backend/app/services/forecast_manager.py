@@ -26,7 +26,13 @@ def update_forecast_cache(models: dict):
         _forecast_models_cache.update(models)
         print(f"Forecast cache updated with {len(models)} models")
 
+def safe_retrain():
+    try:
+        from app.services.retrain_service import retrain_forecast_models
+        retrain_forecast_models()
+    except Exception as e:
+        print("Async retraining skipped or encountered error:", e)
+
 def retrain_forecast_models_async():
-    """Trigger background retraining."""
-    from app.services.retrain_service import retrain_forecast_models
-    threading.Thread(target=retrain_forecast_models, daemon=True).start()
+    """Trigger background retraining safely."""
+    threading.Thread(target=safe_retrain, daemon=True).start()
