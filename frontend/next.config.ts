@@ -6,9 +6,6 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   // Prevent build failures from non-critical issues
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: true,
   },
